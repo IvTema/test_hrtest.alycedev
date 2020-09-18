@@ -32,7 +32,6 @@ class MainPage():
         link = self.browser.find_element(*MainPageLocators.GRAB_APPLE_BTN_EACH)
         time.sleep(8)
         link.click()
-        #self.wait_until_button_can_add(number, link)
         MainPageLocators.GRAB_APPLE_BTN_EACH[1] = MainPageLocators.GRAB_APPLE_BTN_EACH[1][
                                                   :-(len(f"[{str(bttn_number+1)}]"))]
 
@@ -58,13 +57,13 @@ class MainPage():
         MainPageLocators.APPLE_COUNTER[1] = MainPageLocators.APPLE_COUNTER[1][
                                                   :-(len(f"[{str(bttn_number + 1)}]"))]
         assert self.count_user_apples(bttn_number) == self.counter_number, \
-            "Apple counter number != number of apples in user list"
+            f"Apple counter number != number of apples in user list for user{bttn_number+1}"
 
     def count_apples_in_basket(self):
         self.amount_of_busket_apples = len(self.browser.find_elements(*MainPageLocators.BASKET_APPLES))
         return(self.amount_of_busket_apples)
 
-    def user_apple_not_in_basket(self, bttn_number):
+    def user_apples_not_in_basket(self, bttn_number):
         for i in range(self.count_user_apples(bttn_number)):
             for j in range(self.count_apples_in_basket()):
                 MainPageLocators.USER_ITEMS[1] += f"[{str(bttn_number + 1)}]" \
@@ -76,5 +75,35 @@ class MainPage():
                             :-(len(f"[{str(bttn_number + 1)}]" + MainPageLocators.USER_APPLES[1] + f"[{str(i + 1)}]"))]
                 MainPageLocators.BASKET_APPLES[1] = MainPageLocators.BASKET_APPLES[1][
                                                     :-(len(f"[{str(j + 1)}]"))]
-                assert self.user_apple != self.busket_apple, "User have same apple as in basket"
+                assert self.user_apple != self.busket_apple, \
+                    f"User{bttn_number+1} apple{i+1} same as apple{j+1} in basket"
+
+    def count_odd_apple_in_basket(self):
+        self.amount_of_busket_odd_apples = self.count_apples_in_basket() - self.count_apples_in_basket() // 2
+        return(self.amount_of_busket_odd_apples)
+
+    def get_all_user_apples_number(self, bttn_number):
+        self.all_user_apples = []
+        for i in range(self.count_user_apples(bttn_number)):
+            MainPageLocators.USER_ITEMS[1] += \
+                f"[{str(bttn_number + 1)}]" + MainPageLocators.USER_APPLES[1] + f"[{str(i + 1)}]"
+            self.apple_number = self.browser.find_element(*MainPageLocators.USER_ITEMS).text
+            self.all_user_apples.append(self.apple_number[5:])
+            MainPageLocators.USER_ITEMS[1] = MainPageLocators.USER_ITEMS[1][
+                            :-(len(f"[{str(bttn_number + 1)}]" + MainPageLocators.USER_APPLES[1] + f"[{str(i + 1)}]"))]
+        return(self.all_user_apples)
+
+    def all_user_apples_odd(self, bttn_number):
+        self.all_user_apples_numbers = self.get_all_user_apples_number(bttn_number)
+        for i in self.all_user_apples_numbers:
+            assert int(i) % 2 != 0, f"Apple{i} for user{bttn_number+1} not odd"
+
+    def count_even_apple_in_basket(self):
+        self.amount_of_busket_even_apples = self.count_apples_in_basket() // 2
+        return (self.amount_of_busket_even_apples)
+
+    def all_user_apples_even(self, bttn_number):
+        self.all_user_apples_numbers = self.get_all_user_apples_number(bttn_number)
+        for i in self.all_user_apples_numbers:
+            assert int(i) % 2 == 0, f"Apple{i} for user{bttn_number+1} not even"
 

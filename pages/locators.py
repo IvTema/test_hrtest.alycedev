@@ -9,6 +9,7 @@ class MainPageLocators():
     ALERT = (By.CSS_SELECTOR, ".alert-danger")
     USER_ITEMS = ([By.XPATH, "(//li[@class='list-group-item']"])  # missed ")", only + USER_APPLES
     USER_APPLES = ([By.XPATH, "//li[contains(text(), 'Apple')])"])  # missed "(", only + USER_ITEMS
+    ALL_USERS_APPLES = ([By.XPATH, "(//li[contains(text(), 'Apple')])"])
     BASKET_APPLES = ([By.XPATH, "(//ul[contains(@class, 'basket')]//span[contains(text(), 'Apple')])"])
     NAVBAR = (By.CSS_SELECTOR, ".navbar-header")
     ALERT_WRONG_TYPE = (By.XPATH, "(//div[contains(@class, 'col-12 alerts')]//div["

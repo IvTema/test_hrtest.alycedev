@@ -1,6 +1,5 @@
 from pages.main_page import MainPage
 import pytest
-import time
 
 
 @pytest.mark.parametrize('link', ["http://hrtest.alycedev.com/"])
@@ -154,4 +153,10 @@ class TestGrabBtn():
                 page.all_user_apples_even(btn_number - 1)
             page.add_apple(btn_number)
             page.alert_shows_after_try_add_from_empty_basket(btn_number)
+            if page.count_user_apples(btn_number+1) > 0:
+                page.add_apple(btn_number+1)
+                page.alert_shows_after_try_add_from_empty_basket(btn_number+1)
+            if page.count_user_apples(btn_number-1) > 0:
+                page.add_apple(btn_number-1)
+                page.alert_shows_after_try_add_from_empty_basket(btn_number-1)
             page.refresh_list()

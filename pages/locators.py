@@ -11,3 +11,7 @@ class MainPageLocators():
     USER_APPLES = ([By.XPATH, "//li[contains(text(), 'Apple')])"])  # missed "(", only + USER_ITEMS
     BASKET_APPLES = ([By.XPATH, "(//ul[contains(@class, 'basket')]//span[contains(text(), 'Apple')])"])
     NAVBAR = (By.CSS_SELECTOR, ".navbar-header")
+    ALERT_WRONG_TYPE = (By.XPATH, "(//div[contains(@class, 'col-12 alerts')]//div["
+                                  "contains(text(), 'You cant have apples with both odd and even ids, try again')])")
+    ALERT_NONE_IN_BASKET = (By.XPATH, "(//div[contains(@class, 'col-12 alerts')]//div["
+                                  "contains(text(), 'Apple basket is empty')])")

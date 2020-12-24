@@ -1,5 +1,6 @@
 # test_hrtest.alycedev
 This repository for http://hrtest.alycedev.com/
+SITE CLOSED ARCHIVED VERSION http://web.archive.org/web/20181118225633/http://hrtest.alycedev.com/
 
 Underlying business rules:
 - Business logic rule 1 - basket never can give more than 1 apple per minute
